@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather App</title>
+</head>
+<body>
+<p id="output">Hello !!<br><p id="result">Climate is what we expect, Wheather is what we get !!!!</p><br> Enter your City Name </p>
+<input id="city"> <button onclick="show_temp()">Submit</button>
+<script type="text/javascript">
+  function show_temp() {
+    document.getElementById("output").style.color = "blue";
+    document.getElementById("output").style.fontSize = "20px";
+    var city = document.getElementById("city").value;
+    var httpRequest = new XMLHttpRequest();
+    var url = "https://api.weatherbit.io/v2.0/current?city=" + city + "&key=84c12e1ca01b468287cd6625f08a0d87";
+    httpRequest.open("GET", url);
+    httpRequest.send();
+    httpRequest.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var user_data = JSON.parse(this.responseText);
+        document.getElementById("output").innerHTML = "The temperature in " + city + " is " + user_data.data[0].temp + "°F";
+      }
+    }
+  }
+</script>
+</body>
+</html>
